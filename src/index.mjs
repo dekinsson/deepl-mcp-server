@@ -6,6 +6,7 @@ import { z } from "zod";
 import * as deepl from 'deepl-node';
 
 const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
+const DEEPL_GLOSSARY_ID = process.env.DEEPL_GLOSSARY_ID;
 const deeplClientOptions = {
   appInfo: {
     appName: 'DeepL-MCP',
@@ -119,11 +120,17 @@ server.tool(
     await validateLanguages(targetLang);
 
     try {
+      // Build options object, including glossary if available
+      const options = { formality };
+      if (DEEPL_GLOSSARY_ID) {
+        options.glossary = DEEPL_GLOSSARY_ID;
+      }
+
       const result = await deeplClient.translateText(
         text,
         null,
         /** @type {import('deepl-node').TargetLanguageCode} */(targetLang),
-        { formality }
+        options
       );
       return {
         content: [

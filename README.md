@@ -40,6 +40,10 @@ npm install
 
 You'll need a DeepL API key to use this server. You can get one by signing up at [DeepL API](https://www.deepl.com/pro-api?utm_source=github&utm_medium=github-mcp-server-readme). With a DeepL API Free account you can translate up to 500,000 characters/month for free.
 
+### Optional: DeepL Glossary
+
+You can optionally use a predefined DeepL glossary for translations by setting the `DEEPL_GLOSSARY_ID` environment variable. This allows you to ensure consistent terminology across translations. To create and manage glossaries, use the DeepL web interface or API.
+
 ## Using with Claude Desktop
 
 This MCP server integrates with Claude Desktop to provide translation capabilities directly in your conversations with Claude.
@@ -62,7 +66,8 @@ This MCP server integrates with Claude Desktop to provide translation capabiliti
       "command": "npx",
       "args": ["deepl-mcp-server"],
       "env": {
-        "DEEPL_API_KEY": "{YOUR_API_KEY}"
+        "DEEPL_API_KEY": "{YOUR_API_KEY}",
+        "DEEPL_GLOSSARY_ID": "{YOUR_GLOSSARY_ID}"
       }
     }
   }
@@ -78,7 +83,8 @@ Or, if you installed this locally, give Claude an absolute path to the JS file, 
       "command": "node",
       "args": ["/{ABSOLUTE_PATH_TO_SERVER}/deepl-mcp-server/src/index.mjs"],
       "env": {
-        "DEEPL_API_KEY": "{YOUR_API_KEY}"
+        "DEEPL_API_KEY": "{YOUR_API_KEY}",
+        "DEEPL_GLOSSARY_ID": "{YOUR_GLOSSARY_ID}"
       }
     }
   }
@@ -89,7 +95,8 @@ If you've pulled down this code, but you haven't done an `npm install`, or if yo
 
 4. Replace `{ABSOLUTE_PATH_TO_SERVER}` with an **absolute path** to your local copy of this repository - for example, `/Users/robotwoman/Code/deepl-mcp-server`
 5. Replace `{YOUR_API_KEY}` with your actual DeepL API key
-6. Restart Claude Desktop
+6. (Optional) Replace `{YOUR_GLOSSARY_ID}` with your DeepL glossary ID, or remove the `DEEPL_GLOSSARY_ID` line entirely if you don't want to use a glossary
+7. Restart Claude Desktop
 
 Once configured, Claude will be able to use the DeepL translation tools when needed. You can ask Claude to translate text between languages, and it will use the DeepL API behind the scenes.
 
